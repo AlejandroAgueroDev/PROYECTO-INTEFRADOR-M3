@@ -1,0 +1,31 @@
+<section class="view view-about">
+  <h1>Acerca del proyecto</h1>
+  <p>
+    <strong>FranquiciaChat</strong> es una prueba de concepto (POC) desarrollada por
+    <strong>ComicSansCon</strong>, una agencia digital especializada en experiencias
+    interactivas para fans de videojuegos, películas y series.
+  </p>
+  <p>
+    El objetivo es demostrar cómo integrar un modelo de lenguaje (Google Gemini) para
+    crear conversaciones creíbles con personajes ficticios, manteniendo la API key
+    segura del lado del servidor mediante Vercel Functions.
+  </p>
+
+  <h2>Stack técnico</h2>
+  <ul class="tech-list">
+    <li>HTML5, CSS3 (mobile-first, Flexbox/Grid) y JavaScript vanilla</li>
+    <li>Axios para las peticiones HTTP</li>
+    <li>Routing propio con la History API (sin frameworks)</li>
+    <li>Vercel Serverless Functions como backend seguro</li>
+    <li>Google Gemini API para la generación de respuestas</li>
+    <li>Vitest para tests unitarios</li>
+  </ul>
+
+  <h2>Personajes de esta POC</h2>
+  <div id="about-character-preview" class="card-grid card-grid--preview"></div>
+
+  <p class="about-note">
+    El historial de cada conversación se guarda en <code>localStorage</code> de tu
+    navegador — nunca se envía a ningún lado más que a nuestro propio servidor al chatear.
+  </p>
+</section>

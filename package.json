@@ -1,0 +1,21 @@
+{
+  "name": "franquiciachat-comicsanscon",
+  "version": "1.0.0",
+  "description": "POC: SPA de chat con personajes ficticios usando Google Gemini AI, desplegada en Vercel.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8",
+    "jsdom": "^25.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

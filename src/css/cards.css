@@ -1,0 +1,100 @@
+/* ==========================================================================
+   cards.css — Tarjetas de personaje ("credenciales de acceso" al estilo
+   badge de convención). Archivo separado a propósito del resto del layout.
+   ========================================================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card-grid--preview { margin-top: 4px; }
+
+.character-card {
+  --card-accent: #7c5cff;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px 20px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.character-card:hover { transform: translateY(-3px); border-color: var(--card-accent); }
+
+/* Franja superior tipo "credencial" con el color propio del personaje */
+.character-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--card-accent);
+}
+
+.character-card-avatar {
+  width: 64px; height: 64px;
+  margin: 6px auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  background: color-mix(in srgb, var(--card-accent) 22%, transparent);
+  border: 2px solid var(--card-accent);
+}
+
+.character-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.character-card-franchise {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.character-card-tagline {
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  min-height: 2.6em;
+}
+
+.character-card-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.character-card-btn {
+  width: 100%;
+}
+
+/* ============================== Breakpoints ============================== */
+
+/* Tablet: 600px+ -> 2 columnas */
+@media (min-width: 600px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 1024px+ -> 3 columnas (coincide con nuestros 3 personajes) */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .character-card { padding: 26px 20px 24px; }
+}
