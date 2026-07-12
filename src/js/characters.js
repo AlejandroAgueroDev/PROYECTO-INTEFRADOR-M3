@@ -10,8 +10,12 @@ export const CHARACTERS = [
     franchise: 'Portal',
     category: 'Videojuego',
     tagline: 'IA pasivo-agresiva con complejo de superioridad.',
-    avatarEmoji: '🧠',
+    avatarEmoji: null, // Sin emoji
     color: '#f97316',
+    gradientColors: ['#ff6b35', '#f7931e'],
+    image: '/assets/GLaDOS.png',
+    imageOpacity: 0.2,
+    showAvatar: false // Nueva propiedad para ocultar el avatar
   },
   {
     id: 'yoda',
@@ -19,8 +23,12 @@ export const CHARACTERS = [
     franchise: 'Star Wars',
     category: 'Película',
     tagline: 'Maestro Jedi ancestral, sabio y enigmático.',
-    avatarEmoji: '🟢',
+    avatarEmoji: null,
     color: '#22c55e',
+    gradientColors: ['#1a472a', '#2ecc71'],
+    image: '/assets/Yoda.jpg',
+    imageOpacity: 0.1,
+    showAvatar: false
   },
   {
     id: 'geralt',
@@ -28,8 +36,12 @@ export const CHARACTERS = [
     franchise: 'The Witcher',
     category: 'Serie / Videojuego',
     tagline: 'Brujo cazamonstruos, cínico pero con código moral.',
-    avatarEmoji: '🐺',
+    avatarEmoji: null,
     color: '#64748b',
+    gradientColors: ['#2c3e50', '#95a5a6'],
+    image: '/assets/Geralt.jpeg',
+    imageOpacity: 0.1,
+    showAvatar: false
   },
 ];
 
