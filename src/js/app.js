@@ -166,13 +166,13 @@ function characterCardHtml(character) {
       <div class="character-card-content">
         ${avatarHtml}
         <h3>${character.name}</h3>
-        <span class="character-card-franchise">${character.franchise} · ${character.category}</span>
-        <p class="character-card-tagline">${character.tagline}</p>
-        ${saved ? '<span class="character-card-badge">📂 Historial guardado</span>' : ""}
         <button class="character-card-btn" data-chat-id="${character.id}" type="button">
-          Chatear
+        Chatear
+        <i class="fa-solid fa-arrow-right arrow-icon"></i>
         </button>
+        <p class="character-card-tagline">${character.tagline}</p>
       </div>
+      ${saved ? '<span class="character-card-badge" title="Historial guardado" aria-label="Historial guardado"><i class="fa-regular fa-floppy-disk fa-xl"></i></span>' : ""}
     </article>`;
 }
 
@@ -221,8 +221,13 @@ function initThemeToggle() {
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
+
   const toggleBtn = document.getElementById("theme-toggle");
-  toggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+
+  toggleBtn.innerHTML =
+    theme === "dark"
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
 }
 
 /* --------------------------------- Init --------------------------------- */

@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FranquiciaChat — ComicSansCon</title>
+  <title>Chat API</title>
   <meta name="description" content="Chatea con tus personajes favoritos usando IA." />
   <link rel="stylesheet" href="/src/css/styles.css" />
   <link rel="stylesheet" href="/src/css/cards.css" />
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+/>
   <script type="importmap">
     {
       "imports": {
@@ -19,14 +23,14 @@
   <div id="app">
     <header class="app-header">
       <a href="/home" class="brand" data-link>
-        <span class="brand-emoji">🎭</span>
-        <span>FranquiciaChat</span>
+        <span class="brand-emoji"><i class="fa-regular fa-comments fa-xl"></i></span>
+        <span>Chat API</span>
       </a>
 
       <nav class="main-nav">
-        <a href="/home" data-link data-route="home">Inicio</a>
-        <a href="/characters" data-link data-route="characters">Personajes</a>
-        <a href="/about" data-link data-route="about">Acerca de</a>
+        <a href="/home" data-link data-route="home"><i class="fa-solid fa-house nav-icon"></i></i>Inicio</a>
+        <a href="/characters" data-link data-route="characters"><i class="fa-solid fa-user nav-icon"></i></i>Personajes</a>
+        <a href="/about" data-link data-route="about"><i class="fa-solid fa-circle-info nav-icon"></i></i>Acerca de</a>
       </nav>
 
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema">
