@@ -5,7 +5,7 @@
 
 import { CHARACTERS } from "./characters.js";
 import { initChatView } from "./chat.js";
-import { hasStoredHistory } from "./utils.js";
+import { characterCardHtml, characterModalHtml } from "./characterCards.js";
 import { matchRoute } from "./router.js";
 
 const viewRoot = document.getElementById("view-root");
@@ -115,7 +115,7 @@ async function renderHome() {
   const ok = await renderViewFragment("home");
   if (!ok) return;
   const grid = document.getElementById("home-character-preview");
-  grid.innerHTML = CHARACTERS.map(characterCardHtml).join("");
+  grid.innerHTML = CHARACTERS.map((character) => characterCardHtml(character)).join("");
   attachCharacterCardEvents(grid);
 }
 
@@ -125,55 +125,8 @@ async function renderCharacters() {
   const ok = await renderViewFragment("characters");
   if (!ok) return;
   const grid = document.getElementById("characters-grid");
-  grid.innerHTML = CHARACTERS.map(characterCardHtml).join("");
+  grid.innerHTML = CHARACTERS.map((character) => characterCardHtml(character)).join("");
   attachCharacterCardEvents(grid);
-}
-
-function characterCardHtml(character) {
-  const saved = hasStoredHistory(character.id);
-
-  // Preparar la imagen de fondo si existe - con ruta absoluta desde la raíz
-  const imageBg = character.image
-    ? `
-    <div class="character-card-image-bg" 
-         style="background-image: url('${character.image}'); 
-                --image-opacity: ${character.imageOpacity || 0.25};">
-    </div>
-  `
-    : "";
-
-  // Preparar el avatar (solo si showAvatar es true y no es GLaDOS)
-  const showAvatar =
-    character.showAvatar !== false && character.id !== "glados";
-  const avatarHtml = showAvatar
-    ? `
-    <div class="character-card-avatar">${character.avatarEmoji || "🔮"}</div>
-  `
-    : "";
-
-  // Colores del gradiente
-  const gradientStart = character.gradientColors?.[0] || character.color;
-  const gradientEnd = character.gradientColors?.[1] || character.color;
-
-  return `
-    <article class="character-card" 
-             style="--card-accent:${character.color}; 
-                    --glow-color:${character.color}66;
-                    --gradient-start: ${gradientStart};
-                    --gradient-end: ${gradientEnd};" 
-             data-id="${character.id}">
-      ${imageBg}
-      <div class="character-card-content">
-        ${avatarHtml}
-        <h3>${character.name}</h3>
-        <button class="character-card-btn" data-chat-id="${character.id}" type="button">
-        Chatear
-        <i class="fa-solid fa-arrow-right arrow-icon"></i>
-        </button>
-        <p class="character-card-tagline">${character.tagline}</p>
-      </div>
-      ${saved ? '<span class="character-card-badge" title="Historial guardado" aria-label="Historial guardado"><i class="fa-regular fa-floppy-disk fa-xl"></i></span>' : ""}
-    </article>`;
 }
 
 function attachCharacterCardEvents(container) {
@@ -181,6 +134,34 @@ function attachCharacterCardEvents(container) {
     btn.addEventListener("click", () =>
       navigate(`/chat/${btn.dataset.chatId}`),
     );
+  });
+
+  container.querySelectorAll("[data-action='about']").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const characterId = btn.dataset.characterId;
+      const character = CHARACTERS.find((item) => item.id === characterId);
+      if (!character) return;
+
+      const modalMarkup = characterModalHtml(character);
+      document.body.insertAdjacentHTML("beforeend", modalMarkup);
+
+      const modal = document.querySelector(".character-modal");
+      const closeBtn = modal?.querySelector(".character-modal__close");
+      const content = modal?.querySelector(".character-modal__content");
+
+      const closeModal = () => modal?.remove();
+
+      closeBtn?.addEventListener("click", closeModal);
+      content?.addEventListener("click", (event) => event.stopPropagation());
+      modal?.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          event.stopPropagation();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      }, { once: true });
+    });
   });
 }
 
@@ -198,7 +179,7 @@ async function renderAbout() {
   const ok = await renderViewFragment("about");
   if (!ok) return;
   const grid = document.getElementById("about-character-preview");
-  grid.innerHTML = CHARACTERS.map(characterCardHtml).join("");
+  grid.innerHTML = CHARACTERS.map((character) => characterCardHtml(character, { mode: "about" })).join("");
   attachCharacterCardEvents(grid);
 }
 

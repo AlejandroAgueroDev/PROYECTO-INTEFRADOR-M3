@@ -1,19 +1,40 @@
 <section class="view view-chat">
   <header class="chat-header">
-    <a href="/characters" data-link class="chat-back" aria-label="Volver a personajes">←</a>
+    <a
+      href="/characters"
+      data-link
+      class="chat-back"
+      title="Volver a personajes"
+      aria-label="Volver a personajes"
+    >
+      <i class="fa-solid fa-arrow-left-long"></i>
+    </a>
     <div class="chat-character-info">
-      <span id="chat-avatar" class="chat-avatar">🎭</span>
+      <span class="chat-avatar-wrap">
+        <span id="chat-avatar" class="chat-avatar">🎭</span>
+      </span>
       <div>
         <h1 id="chat-character-name">Personaje</h1>
         <span id="chat-status" class="chat-status">en línea</span>
       </div>
     </div>
-    <button id="chat-clear-btn" class="btn btn-danger-ghost" type="button" title="Borrar historial de esta conversación">
-      🗑️ Borrar
+    <button
+      id="chat-clear-btn"
+      class="btn btn-danger-ghost"
+      type="button"
+      title="Borrar historial de esta conversación"
+    >
+      <i class="fa-solid fa-trash-can"></i>
+      <span class="btn-text">Borrar</span>
     </button>
   </header>
 
-  <div id="chat-messages" class="chat-messages" role="log" aria-live="polite"></div>
+  <div
+    id="chat-messages"
+    class="chat-messages"
+    role="log"
+    aria-live="polite"
+  ></div>
 
   <div id="chat-typing" class="typing-indicator hidden" aria-hidden="true">
     <span></span><span></span><span></span>
@@ -22,8 +43,23 @@
   <div id="chat-error" class="chat-error hidden" role="alert"></div>
 
   <form id="chat-form" class="chat-input-bar">
-    <label for="chat-input" class="sr-only">Escribí tu mensaje</label>
-    <textarea id="chat-input" class="chat-input" placeholder="Escribí tu mensaje…" rows="1" maxlength="500" required></textarea>
-    <button type="submit" class="chat-send-btn" id="chat-send-btn" aria-label="Enviar mensaje">➤</button>
+    <label for="chat-input" class="sr-only">Escribí tu mensaje...</label>
+    <textarea
+      id="chat-input"
+      class="chat-input"
+      placeholder="Escribí tu mensaje…"
+      rows="1"
+      maxlength="500"
+      required
+    ></textarea>
+    <button
+      type="submit"
+      class="chat-send-btn"
+      id="chat-send-btn"
+      aria-label="Enviar mensaje"
+      title="Enviar mensaje"
+    >
+      <i class="fa-solid fa-location-arrow fa-xl"></i>
+    </button>
   </form>
 </section>

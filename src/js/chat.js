@@ -44,8 +44,17 @@ export function initChatView(characterId) {
     clearBtn: document.getElementById('chat-clear-btn'),
   };
 
-  els.avatar.textContent = character.avatarEmoji;
-  els.avatar.style.background = character.color;
+  els.avatar.innerHTML = '';
+  els.avatar.style.background = 'transparent';
+  if (character.icon) {
+    const iconImg = document.createElement('img');
+    iconImg.src = character.icon;
+    iconImg.alt = character.name;
+    iconImg.className = 'chat-avatar__image';
+    els.avatar.appendChild(iconImg);
+  } else {
+    els.avatar.textContent = character.avatarEmoji || '🧠';
+  }
   els.name.textContent = character.name;
 
   // Estado en memoria de esta sesión de chat

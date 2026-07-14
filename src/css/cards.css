@@ -178,6 +178,12 @@
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.character-card-btn--about {
+  width: 78%;
+  min-width: 160px;
+  gap: 8px;
+}
+
 .character-card-btn:hover {
   background: var(--card-accent);
   border-color: var(--card-accent);
@@ -214,6 +220,6 @@
     transform: translateY(-8px) scale(1.03);
   }
   .character-card-btn {
-    width: 55%;
+    width: 65%;
   }
 }

@@ -16,6 +16,7 @@ export const CHARACTERS = [
     image: "/assets/GLaDOS.png",
     imageOpacity: 0.2,
     showAvatar: false, // Nueva propiedad para ocultar el avatar
+    icon: "/assets/IconoAperture.webp",
   },
   {
     id: "yoda",
@@ -29,6 +30,7 @@ export const CHARACTERS = [
     image: "/assets/Yoda.jpg",
     imageOpacity: 0.1,
     showAvatar: false,
+    icon: "/assets/IconoJedi.png",
   },
   {
     id: "geralt",
@@ -42,6 +44,7 @@ export const CHARACTERS = [
     image: "/assets/Geralt6.jpeg",
     imageOpacity: 0.1,
     showAvatar: false,
+    icon: "/assets/IconoTheWitcher.png",
   },
 ];
 
