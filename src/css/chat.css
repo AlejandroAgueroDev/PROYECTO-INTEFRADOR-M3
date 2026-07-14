@@ -275,13 +275,51 @@
   flex-shrink: 0;
   display: grid;
   place-items: center;
+
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
 }
-.chat-send-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+
+.chat-send-btn i{
+  transition: transform .25s ease;
 }
-.chat-send-btn:not(:disabled):hover {
+
+.chat-send-btn:not(:disabled):hover{
+  transform: translateY(-2px) scale(1.05);
   filter: brightness(1.08);
+  box-shadow: 0 0 18px rgba(34,211,201,.45);
+}
+
+.chat-send-btn:not(:disabled):hover i{
+  transform: translate(2px,-2px) rotate(-12deg);
+}
+
+.chat-send-btn{
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-send-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255,255,255,.45) 50%,
+    transparent 80%
+  );
+  transform: translateX(-140%);
+}
+
+.chat-send-btn:not(:disabled):hover::before{
+  animation: shine .8s ease;
+}
+
+
+@keyframes shine{
+  to{
+    transform: translateX(140%);
+  }
 }
 
 @media (min-width: 1024px) {

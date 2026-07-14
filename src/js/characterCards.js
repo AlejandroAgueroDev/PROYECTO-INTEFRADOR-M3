@@ -49,6 +49,7 @@ export function characterCardHtml(character, options = {}) {
         ${buttonHtml}
         <p class="character-card-tagline">${character.tagline}</p>
       </div>
+      ${saved && mode !== "about" ? '<span class="character-card-badge" title="Historial guardado" aria-label="Historial guardado"><i class="fa-regular fa-floppy-disk fa-xl"></i></span>' : ""}
     </article>`;
 }
 
