@@ -1,13 +1,9 @@
 // api/chat.js
 // Vercel Serverless Function.
-// Recibe el historial de mensajes + el personaje elegido, arma el prompt
-// del sistema con la personalidad correspondiente, y llama a la API de
-// Google Gemini usando la API key guardada en variables de entorno del
-// servidor (nunca llega al cliente).
-
+import axios from "axios";
 import { getPersonality } from "../src/personalities/index.js";
 
-const GEMINI_MODEL = "gemini-flash-latest"; // alias auto-actualizado -> actualmente Gemini 3.5 Flash
+const GEMINI_MODEL = "gemini-flash-latest";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 export default async function handler(req, res) {
@@ -42,8 +38,6 @@ export default async function handler(req, res) {
         .json({ error: `Personaje "${characterId}" no encontrado.` });
     }
 
-    // Transformamos nuestro historial { role: 'user' | 'assistant', text }
-    // al formato que espera Gemini: { role: 'user' | 'model', parts: [{ text }] }
     const contents = messages.map((m) => ({
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: m.text }],
@@ -57,7 +51,7 @@ export default async function handler(req, res) {
       },
       generationConfig: {
         temperature: 0.9,
-        maxOutputTokens: 256,
+        maxOutputTokens: 1000,
         topP: 0.95,
       },
       safetySettings: [
@@ -74,25 +68,16 @@ export default async function handler(req, res) {
       ],
     };
 
-    const response = await fetch(GEMINI_URL, {
-      method: "POST",
+    // Llamada con Axios
+    const response = await axios.post(GEMINI_URL, geminiPayload, {
       headers: {
         "Content-Type": "application/json",
         "x-goog-api-key": apiKey,
       },
-      body: JSON.stringify(geminiPayload),
     });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error("Error de Gemini API:", response.status, errorBody);
-      return res.status(502).json({
-        error:
-          "La IA no pudo responder en este momento. Intentá de nuevo en unos segundos.",
-      });
-    }
-
-    const data = await response.json();
+    // La data parseada ya viene en response.data
+    const data = response.data;
 
     const candidate = data?.candidates?.[0];
     const finishReason = candidate?.finishReason;
@@ -114,7 +99,20 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ reply: text, characterId });
   } catch (error) {
-    console.error("Error inesperado en /api/chat:", error);
+    // Si Axios recibe un status fuera de 2xx (por ejemplo 400 u 800), entra acá
+    if (error.response) {
+      console.error(
+        "Error de Gemini API:",
+        error.response.status,
+        error.response.data
+      );
+      return res.status(502).json({
+        error:
+          "La IA no pudo responder en este momento. Intentá de nuevo en unos segundos.",
+      });
+    }
+
+    console.error("Error inesperado en /api/chat:", error.message || error);
     return res.status(500).json({ error: "Error interno del servidor." });
   }
 }
